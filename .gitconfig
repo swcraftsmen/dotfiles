@@ -1,0 +1,48 @@
+[color]
+    # Use colors in Git commands that are capable of colored output when
+    # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+    ui = auto
+[alias]
+    br  = branch
+    ba  = branch -a
+    bav = branch -av
+    ci  = commit
+    co  = checkout
+    cot = checkout -t
+    cp  = cherry-pick
+    d   = diff --patience
+    ds  = diff --cached --patience
+    dt  = difftool
+    dhd = diff HEAD
+    l   = log -20 --date=short --pretty=format:'%C(bold magenta)%h %Creset%C(green)%cd%Creset %C(white)%aN%Creset %s %C(yellow)%d'
+    lg  = log -20 --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    m   = merge
+    pr  = "!f() { remote=${2:-$(git remote|head -1)}; git fetch -fu $remote refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+    pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+    ru  = remote update
+    rup = remote update --prune
+    st  = status
+    fu  = fetch upstream
+    dt  = difftool
+[core]
+    excludesfile = ~/.gitignore
+	  editor = vim
+[merge]
+    conflictstyle = diff3
+[rerere]
+    enabled = true
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
+    path = nvim
+[user]
+	name = Zachary Huang
+	email = zachary.huang@rallyhealth.com
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[url "ssh://git@github.com/AudaxHealthInc/"]
+	insteadOf = https://github.com/AudaxHealthInc/

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Directory navegation ..
+alias ..="cd .."
+alias ...="cd ../.."
+alias home='cd $HOME'
+
+# List command
+alias ls="ls -G"
+alias ll="ls -larth"
+alias ld="ls -larthf -G | grep --color=never '^d'"
+
+# IP Address
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+
+# A command-line fuzzy finder
+# execute the command with preview window
+alias ffp="fzf --preview 'cat {}' --color=border:27"
+
+# # URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+
+# macOS specific
+command -v hd > /dev/null || alias hd="hexdump -C"
+command -v md5sum > /dev/null || alias md5sum="md5"
+command -v shasum > /dev/null || alias shasum="shasum"
+
+# .DS_Store recursively
+alias rds="find . -type f -name '*.DS_Store' -ls -delete"

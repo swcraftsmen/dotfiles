@@ -1,0 +1,38 @@
+#!/bin/bash
+
+OS_NAME=$(uname)
+DOTFILES=$HOME/.dotfiles
+echo "Detect the OS kernal name: [${OS_NAME}]"
+
+function install_vim(){
+    echo "Installing the Vim Plugin plug.vim ..."
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -fLo ~/.vim/colors/apprentice.vim --create-dirs https://raw.githubusercontent.com/swcraftsmen/Apprentice/master/colors/apprentice.vim
+    ln -snf $DOTFILES/.vimrc ~/.vimrc
+    ln -snf $DOTFILES/.gitconfig ~/.gitconfig
+    ln -snf $DOTFILES/.tmux.conf ~/.tmux.conf
+    ln -snf $DOTFIELS/.tmuxline_snapshot ~/.tmuxline_snapshot
+    vim +PlugInstall +qall
+}
+
+# fzf A command-line fuzzy finder
+function install_fzf(){
+    echo "Installing the fzf ..."
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --no-zsh --no-fish --no-update-rc --no-key-bindings --completion
+    [ -e $HOME/.fzf/bin/fzf ] > /dev/null && echo "fzf installed sucessfully ..."
+}
+
+install_vim
+install_fzf
+
+case "$(uname)" in
+    "Linux")
+        echo "source $HOME/.dotfiles/.bashrc" >> $HOME/.bashrc
+	    source $HOME/.bashrc
+        ;;
+    "Darwin")
+        echo "source $HOME/.dotfiles/.bashrc" >> $HOME/.bash_profile
+	    source $HOME/.bash_profile
+        ;;
+esac
